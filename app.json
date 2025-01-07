@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "taxiky",
+    "name": "TaxiKy",
     "slug": "taxiky",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,9 +8,13 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/loading.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "dark": {
+            "image": "./assets/images/loading.png",
+            "backgroundColor": "#000000"
+          }
     },
     "ios": {
       "supportsTablet": true
@@ -19,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.taxiky"
     },
     "web": {
       "bundler": "metro",
@@ -27,7 +32,8 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true

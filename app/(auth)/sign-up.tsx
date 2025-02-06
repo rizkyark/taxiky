@@ -2,6 +2,7 @@ import CustomButton from "@/components/CustomButton";
 import InputField from "@/components/InputField";
 import OAuth from "@/components/OAuth";
 import { icons, images } from "@/constant";
+import { fetchAPI } from "@/lib/fetch";
 import { useSignUp } from "@clerk/clerk-expo";
 import { Link, router } from "expo-router";
 import React, { useState } from "react";
@@ -66,6 +67,14 @@ const SignUp = () => {
       // If verification was completed, set the session to active
       // and redirect the user
       if (signUpAttempt.status === "complete") {
+        await fetchAPI("/(api)/user", {
+          method: "POST",
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            clerkId: signUpAttempt.createdUserId,
+          }),
+        });
         await setActive({ session: signUpAttempt.createdSessionId });
         setVerification({ ...verification, state: "success" });
       } else {
@@ -95,7 +104,7 @@ const SignUp = () => {
         <View className="relative w-full h-[250px]">
           <Image source={{ uri: banner }} className="z-0 w-full h-[250px]" />
           <Text className="text-2xl text-white font-JakartaSemiBold absolute bottom-3 left-3">
-            Create Your Account {form.password}
+            Create Your Account
           </Text>
         </View>
 
@@ -198,7 +207,10 @@ const SignUp = () => {
               <CustomButton
                 title="Browse Home"
                 className="mt-5"
-                onPress={() => router.replace("/(root)/(tabs)/home")}
+                onPress={() => {
+                  setVerification({ ...verification, state: "default" });
+                  router.push("/(root)/(tabs)/home");
+                }}
               />
             </View>
           </ReactNativeModal>
